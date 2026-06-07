@@ -31,7 +31,7 @@
   html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
   /* ============ WebGL 双背景 ============ */
-  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:0;display:block;transition:opacity 1.2s ease}
   canvas#bg-light{opacity:0}
   canvas#bg-dark{opacity:1}
   body.light-bg canvas#bg-light{opacity:1}
@@ -40,8 +40,8 @@
 
   /* ============ Deck 容器 + 翻页 ============ */
   /* width: NSLIDES * 100vw，会在 JS 里动态矫正 */
-  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
-  .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;height:100dvh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
+  .slide{width:100vw;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;min-height:100vh;min-height:100dvh;max-height:100vh;max-height:100dvh}
   .slide.light{color:var(--ink);background:var(--paper)}
   .slide.dark{color:var(--paper);background:var(--ink)}
 
@@ -452,15 +452,38 @@
   body.low-power.motion-ready [data-anim],
   body.low-power [data-anim]{opacity:1!important;transform:none!important}
 
-  /* ---------- 响应式降级 ---------- */
+  /* ---------- 响应式降级 · 手机专用 ---------- */
   @media (max-width:900px){
+    .slide{padding:3vh 4vw 10vh 4vw}
+    .chrome{font-size:10px;letter-spacing:.12em}
     .display{font-size:16vw}
     .display-zh{font-size:12vw}
     .h1-zh{font-size:7vw}
     .h-hero{font-size:14vw}
     .h-xl{font-size:9vw}
-    .pipeline{grid-template-columns:repeat(2,1fr)}
-    .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
+    .h-sub{font-size:5vw}
+    .lead{font-size:3.4vw;max-width:100%!important}
+    .body-zh{font-size:max(14px,3vw);line-height:1.55}
+    /* 手机上一列显示，不要多列网格 */
+    .grid-2-6-6,.grid-2-7-5,.grid-2-8-4{grid-template-columns:1fr;gap:3vh 0}
+    .grid-3{grid-template-columns:1fr;gap:3vh 0}
+    .grid-4{grid-template-columns:1fr;gap:2.5vh 0}
+    .grid-6{grid-template-columns:1fr;gap:2.5vh 0}
+    .grid-9{grid-template-columns:1fr 1fr;gap:2.5vh 3vw}
+    .split,.split-55{grid-template-columns:1fr;gap:4vh 0}
+    .pipeline{grid-template-columns:1fr;gap:3vh 0}
+    .stat .n{font-size:14vw}
+    .big-num{font-size:16vw}
+    .mid-num{font-size:10vw}
+    .frame{padding-top:1vh!important}
+    .frame[style*="padding-top:5vh"],.frame[style*="padding-top:4vh"]{padding-top:1vh!important}
+    .h-hero[style*="font-size:8vw"]{font-size:12vw!important}
+    .h-hero[style*="font-size:7vw"]{font-size:11vw!important}
+    .kicker{margin-bottom:1.2vh;font-size:10px}
+    .q-big{font-size:max(14px,3vw)!important}
+    .callout{padding:2vh 3vw;font-size:max(13px,2.8vw)}
+    .callout .cite{font-size:10px;margin-top:1vh}
+    .ghost{font-size:50vw}
   }
 </style>
 </head>
